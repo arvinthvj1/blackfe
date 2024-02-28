@@ -18,6 +18,7 @@ const RegisterPage = () => {
     console.log('Form Data:', formData);
     
     const postTheData =  await postData("user/register", formData);
+    storeUserToken(postTheData.data.token);
     debugger
 
     

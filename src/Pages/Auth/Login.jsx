@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
+import { postData } from '../../Utilities/apiBase';
+import { storeUserToken } from '../../Utilities/authTokens';
+import { useHistory } from 'react-router-dom';
+
+
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+    debugger
+    const history = useHistory();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Add your login logic here
-    console.log('Logging in with:', email, password);
+
+
+  const handleLogin = async() => {
+    let formData = {email, password}
+    
+    const postTheData =  await postData("user/login", formData);
+    debugger
+    if(storeUserToken(postTheData.data.token)){
+        history.push("/dashboard");
+    }
+
   };
 
+ 
   return (
     <div>
       <h2>Login</h2>
