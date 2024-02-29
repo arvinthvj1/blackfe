@@ -14,10 +14,14 @@ const storeUserToken = (token) =>{
 
 
 const isUserAvailable = async()=>{
-    debugger
     try{
-        let decrypt = decryptText(localStorage.getItem("userToken"),"secretkey");
-        return  true
+        let authVerify = await postData("user/isAuthUser", {
+            token : localStorage.getItem("userToken")
+        });
+        if(authVerify.status == 201){
+            return true
+        }
+        return false
     }catch(err){
         return false
     }
